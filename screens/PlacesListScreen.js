@@ -33,7 +33,7 @@ const PlacesListScreen = props => {
 PlacesListScreen.navigationOptions = navData => {
   return {
     headerTitle: 'All Places',
-    headerRight: (
+    headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Add Place"
