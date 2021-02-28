@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Platform, FlatList } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import HeaderButton from '../components/HeaderButton';
 import PlaceItem from '../components/PlaceItem';
+import { setPlace } from '../store/places-actions';
 
 const PlacesListScreen = props => {
   //list of places of Place class.
   const places = useSelector(state => state.places.places);
-  
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setPlace());
+  }, [])
+
   return (
     <FlatList
       data={places}
@@ -39,7 +45,7 @@ PlacesListScreen.navigationOptions = navData => {
           title="Add Place"
           iconName={Platform.OS === 'android' ? 'md-add' : 'ios-add'}
           onPress={() => {
-              navData.navigation.navigate('NewPlace');
+            navData.navigation.navigate('NewPlace');
           }}
         />
       </HeaderButtons>

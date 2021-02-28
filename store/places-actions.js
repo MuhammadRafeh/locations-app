@@ -1,7 +1,8 @@
 import * as FileSystem from 'expo-file-system';
-import { insertData } from '../helpers/db';
+import { fetchData, insertData } from '../helpers/db';
 
 export const ADD_PLACE = 'ADD_PLACE';
+export const SET_PLACE = 'SET_PLACE';
 
 export const addPlace = (title, image) => { //both params are string
   return async dispatch => {
@@ -14,13 +15,13 @@ export const addPlace = (title, image) => { //both params are string
         to: newPath
       });
       const res = await insertData(title, newPath, 'Pakistan', 132.3, 23);
-      dispatch({ 
-        type: ADD_PLACE, 
-        placeData: { 
-          id: res.insertId, 
-          title, 
-          imageUri: newPath 
-        } 
+      dispatch({
+        type: ADD_PLACE,
+        placeData: {
+          id: res.insertId,
+          title,
+          imageUri: newPath
+        }
       });
       console.log(res)
     } catch (err) {
@@ -30,3 +31,14 @@ export const addPlace = (title, image) => { //both params are string
 
   };
 };
+
+export const setPlace = () => {
+  return async dispatch => {
+    const res = await fetchData();
+    console.log(res);
+    dispatch({
+      type: SET_PLACE,
+      payload: res.rows._array
+    });
+  }
+}
