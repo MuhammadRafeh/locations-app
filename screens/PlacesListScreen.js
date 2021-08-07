@@ -14,7 +14,7 @@ const PlacesListScreen = props => {
   useEffect(() => {
     dispatch(setPlace());
   }, [])
-
+  console.log(places)
   return (
     <FlatList
       data={places}
